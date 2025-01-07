@@ -5,29 +5,47 @@ networks:
 services:
   chromadb:
     image: chromadb/chroma:latest
+    container_name: chromadb
     volumes:
       - chroma-data:/chroma/chroma
     command: "--workers 1 --host 0.0.0.0 --port 8000 --proxy-headers --log-config chromadb/log_config.yml --timeout-keep-alive 30"
     environment:
       - IS_PERSISTENT=TRUE
-      - CHROMA_SERVER_AUTHN_PROVIDER=${CHROMA_SERVER_AUTHN_PROVIDER}
-      - CHROMA_SERVER_AUTHN_CREDENTIALS_FILE=${CHROMA_SERVER_AUTHN_CREDENTIALS_FILE}
-      - CHROMA_SERVER_AUTHN_CREDENTIALS=${CHROMA_SERVER_AUTHN_CREDENTIALS}
-      - CHROMA_AUTH_TOKEN_TRANSPORT_HEADER=${CHROMA_AUTH_TOKEN_TRANSPORT_HEADER}
       - PERSIST_DIRECTORY=/chroma/chroma
-      - CHROMA_OTEL_EXPORTER_ENDPOINT=${CHROMA_OTEL_EXPORTER_ENDPOINT}
-      - CHROMA_OTEL_EXPORTER_HEADERS=${CHROMA_OTEL_EXPORTER_HEADERS}
-      - CHROMA_OTEL_SERVICE_NAME=${CHROMA_OTEL_SERVICE_NAME}
-      - CHROMA_OTEL_GRANULARITY=${CHROMA_OTEL_GRANULARITY}
-      - CHROMA_SERVER_NOFILE=${CHROMA_SERVER_NOFILE}
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chromadb-router.rule=Host(`chromadb.hrnph.dev`)"
+      - "traefik.http.routers.chromadb-router.entrypoints=web"
+      - "traefik.http.services.chromadb-service.loadbalancer.server.port=8000"
+    networks:
+      - net
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik_proxy
+    restart: always
+    command:
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
     ports:
-      - "8000:8000"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v2/heartbeat"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - net
+
+  dozzle:
+    image: amir20/dozzle:v8.9.1
+    container_name: chroma_logs
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dozzle-router.rule=Host(`chromadb-logs.hrnph.dev`)"
+      - "traefik.http.routers.dozzle-router.entrypoints=web"
+      - "traefik.http.services.dozzle-service.loadbalancer.server.port=8080"
     networks:
       - net
 

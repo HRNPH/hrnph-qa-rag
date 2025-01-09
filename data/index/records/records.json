@@ -1,0 +1,10 @@
+[
+    {
+        "collection": "v1-personal-all-MiniLM-L6-v2",
+        "model": "MiniLM-L6-v2",
+        "type": "personal",
+        "version": "v1",
+        "date": "2025-01-10",
+        "description": "General Personal Information Encode on small model MiniLM-L6-v2"
+    }
+]

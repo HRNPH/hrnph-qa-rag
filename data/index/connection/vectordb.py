@@ -30,10 +30,21 @@ class VectorDb:
     def list_collections():
         return VectorDb.client.list_collections()
 
-    def create_collection(self, collection_name):
+    @staticmethod
+    def create_collection(collection_name):
         return VectorDb.client.create_collection(collection_name)
+
+    @staticmethod
+    def delete_collection(collection_name):
+        return VectorDb.client.delete_collection(collection_name)
+
+    @staticmethod
+    def insert(collection_name, ids, embeddings, documents, metadatas):
+        index = VectorDb.client.get_collection(collection_name)
+        return index.add(
+            ids=ids, embeddings=embeddings, documents=documents, metadatas=metadatas
+        )
 
 
 if __name__ == "__main__":
-    # print(get_cookies())
     print(VectorDb.list_collections())

@@ -51,20 +51,6 @@ services:
     networks:
       - net
 
-  chromadb-admin:
-    image: fengzhichao/chromadb-admin
-    container_name: chromadb-admin
-    env_file:
-      - .env
-    restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.chromadb-admin-router.rule=Host(`chromadb-admin.hrnph.dev`)"
-      - "traefik.http.routers.chromadb-admin-router.entrypoints=web"
-      - "traefik.http.services.chromadb-admin-service.loadbalancer.server.port=3000"
-    networks:
-      - net
-
 volumes:
   chroma-data:
     driver: local

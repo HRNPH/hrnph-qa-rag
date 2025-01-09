@@ -54,6 +54,8 @@ services:
   chromadb-admin:
     image: fengzhichao/chromadb-admin
     container_name: chromadb-admin
+    env_file:
+      - .env
     restart: unless-stopped
     labels:
       - "traefik.enable=true"

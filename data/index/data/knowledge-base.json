@@ -1,0 +1,363 @@
+[
+    {
+        "id": "1",
+        "title": "Profile Summary",
+        "content": "Hirunkul Phimsiri is a developer skilled in full-stack development and AI/ML engineering. He creates scalable applications using tools like Next.js and React Native, working with multi-cloud platforms such as Google Cloud, AWS, and Azure. He has experience building CI/CD pipelines with GitHub Actions and GitLab CI, as well as deploying AI models as APIs or integrated solutions.",
+        "metadata": {
+            "tags": [
+                "profile",
+                "summary",
+                "skills"
+            ],
+            "type": "profile",
+            "date": "2025-01-10",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "2",
+        "title": "Education - Chulalongkorn University",
+        "content": "Hirunkul Phimsiri is currently studying at Chulalongkorn University, pursuing a degree in Computer Engineering & Digital Technology. He started his studies in 2022 and is currently in his second year.",
+        "metadata": {
+            "tags": [
+                "education",
+                "university"
+            ],
+            "type": "education",
+            "date": "2025-01-10",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "3",
+        "title": "Founder, President - CEDT Solution Club",
+        "content": "Founded and led CEDT Solution, one of the largest clubs in the CEDT Department, with over 30 active members. Generated 150,000 THB by creating software solutions for the department. Focused on preparing students for internships by simulating real-world software development practices. Key responsibilities: Gather Prior Requirements, Maintain Development Intensity, Implement Knowledge Sharing, Introduce New Tools and Technologies.",
+        "metadata": {
+            "tags": [
+                "work",
+                "club",
+                "leadership",
+                "software"
+            ],
+            "type": "experience",
+            "date": "2024-01-01",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "4",
+        "title": "Co-Founder, Executive Director - SolveServe Group",
+        "content": "Co-founded a legally registered software company during the first semester of college with trusted peers. Secured over 1.5 million THB in contracts within six months through connections made at technology conventions and exhibitions. Key responsibilities: Oversees Project Development, Gather Prior Requirements, Implement Company Coding Guidelines, Assemble a Software Development Team, Implement Agile-Waterfall Hybrid SDLC.",
+        "metadata": {
+            "tags": [
+                "work",
+                "startup",
+                "co-founder",
+                "software"
+            ],
+            "type": "experience",
+            "date": "2023-01-01",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "5",
+        "title": "AI Software Engineer - Cariva Thailand",
+        "content": "A key developer for multiple key products such as PreceptorAI LineOA, a medical chatbot based on extensive knowledge on medical question answers with RAG. Supporting and maintaining LLM endpoints for multiple services serving over 150k users monthly. Key responsibilities: Handling Software Development Procedures, Implementing CI/CD Pipelines, Developing Unit and Integration Tests, Building and Maintaining AI Service Endpoints.",
+        "metadata": {
+            "tags": [
+                "work",
+                "ai",
+                "developer",
+                "medical"
+            ],
+            "type": "experience",
+            "date": "2023-01-01",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "6",
+        "title": "AI Software Vendor - Thailand SEC",
+        "content": "Developed a customized Retrieval Augmented Generation (RAG) system for the Thailand Securities and Exchange Commission (SEC). (Details are confidential.)",
+        "metadata": {
+            "tags": [
+                "work",
+                "ai",
+                "vendor",
+                "rag",
+                "sec"
+            ],
+            "type": "experience",
+            "date": "2023-01-01",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "7",
+        "title": "Mentor - AI Builders",
+        "content": "Mentored high school students on data science projects and consulted on AI-related topics. Mentored highly achieved students at one of the most successful AI camps in Thailand, with students recognized as the top three 'Judges' Favorites' award winners.",
+        "metadata": {
+            "tags": [
+                "mentor",
+                "ai",
+                "education",
+                "consulting"
+            ],
+            "type": "experience",
+            "date": "2024-06-01",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "8",
+        "title": "Intern Data Scientist - DataVue",
+        "content": "Worked on AI marketing products development, maintained databases using PostgreSQL on AWS RDS, and focused on product design, development, and deployment.",
+        "metadata": {
+            "tags": [
+                "internship",
+                "data science",
+                "product development"
+            ],
+            "type": "experience",
+            "date": "2023-06-01",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "9",
+        "title": "Teaching Assistant - AI Builders",
+        "content": "Assisted high school students with data science projects, providing guidance in teaching and mentoring.",
+        "metadata": {
+            "tags": [
+                "teaching",
+                "mentoring",
+                "data science",
+                "education"
+            ],
+            "type": "experience",
+            "date": "2023-06-01",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "10",
+        "title": "Skills",
+        "content": "AI/ML (PyTorch, Scikit-learn), Fullstack Web Development, Mobile (React Native), DevOps, CI/CD",
+        "metadata": {
+            "tags": ["skills", "development", "ai/ml"],
+            "type": "skills",
+            "date": "2025-01-10",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "11",
+        "title": "Tool Chains",
+        "content": "PyTorch, Scikit-learn, React, Next.js, Astro, Express, NestJS, FastAPI, LiteStar, GitHub Actions, GitLab CI, Docker, Kubernetes, ArgoCD, Cloudflare, Proxmox, Terraform, Packer",
+        "metadata": {
+            "tags": ["tools", "frameworks", "technologies"],
+            "type": "tools",
+            "date": "2025-01-10",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "12",
+        "title": "Interests",
+        "content": "Machine Learning / Deep Learning, Startup, Medical Technology, Cloud Computing, Homelab / Home Datacenter, Anime, Manga, Light Novel",
+        "metadata": {
+            "tags": ["interests", "hobbies"],
+            "type": "interests",
+            "date": "2025-01-10",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "13",
+        "title": "Languages",
+        "content": "Thai (Native), English (Fluent)",
+        "metadata": {
+            "tags": ["languages", "communication"],
+            "type": "languages",
+            "date": "2025-01-10",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "14",
+        "title": "Education",
+        "content": "Chulalongkorn University - Computer Engineering & Digital Technology (CEDT)",
+        "metadata": {
+            "tags": ["education", "university"],
+            "type": "education",
+            "date": "2025-01-10",
+            "source": "uploaded_image"
+        }
+    },
+    {
+        "id": "15",
+        "title": "Constant Learner",
+        "content": "I get bored easily, so I constantly find random new things to learn—whether it's the 1000th JavaScript framework I'll never use or binge-watching finance documentaries. I also love exploring GitHub for random projects!",
+        "metadata": {
+            "tags": ["fun fact", "learning", "curiosity"],
+            "type": "fun_fact",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "16",
+        "title": "Spontaneous Adventurer",
+        "content": "I love experiencing new things. I often take random walks or drop myself off at a random train station, open Google Maps, and explore interesting places without any plan.",
+        "metadata": {
+            "tags": ["fun fact", "adventure", "exploration"],
+            "type": "fun_fact",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "17",
+        "title": "Coffee Enthusiast",
+        "content": "I'm a coffee addict! I drink at least two cups of coffee every day, and I can’t go without it.",
+        "metadata": {
+            "tags": ["fun fact", "coffee", "habit"],
+            "type": "fun_fact",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "18",
+        "title": "Short-Form Video Critic",
+        "content": "I strongly dislike short videos, especially TikTok, and I don’t even have the app. However, I’m addicted to YouTube Shorts because I can’t disable them!",
+        "metadata": {
+            "tags": ["fun fact", "videos", "quirk"],
+            "type": "fun_fact",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "19",
+        "title": "Tech-Savvy House Rules",
+        "content": "My home network blocks TikTok and Instagram traffic using Pi-hole. So, if you visit my home, you won't be able to use TikTok—it's completely intentional!",
+        "metadata": {
+            "tags": ["fun fact", "tech", "house rules"],
+            "type": "fun_fact",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "20",
+        "title": "Night Owl and Dark Theme Lover",
+        "content": "I prefer working at night because it's cozier and quieter, which helps me focus. I often pull all-nighters and, unsurprisingly, I love dark themes in my software and tools.",
+        "metadata": {
+            "tags": ["fun fact", "work habit", "dark theme", "night owl"],
+            "type": "personal_trait",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "21",
+        "title": "Big Fan of Tailscale and Cloudflare",
+        "content": "I'm a big fan of Tailscale and Cloudflare. Their innovations have made it possible for me to build and maintain my homelab setup, and I can't imagine my tech life without them.",
+        "metadata": {
+            "tags": ["tech", "homelab", "tailscale", "cloudflare"],
+            "type": "personal_trait",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "22",
+        "title": "Favorite Anime - Violet Evergarden",
+        "content": "My favorite anime of all time is Violet Evergarden. It was the first anime movie I ever watched, and it had a profound emotional impact on me. I even skipped school right after an exam and traveled 30km with my parents to watch it in the theater, where I cried for the first time during a movie.",
+        "metadata": {
+            "tags": ["anime", "favorite", "violet evergarden", "emotional"],
+            "type": "personal_trait",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "23",
+        "title": "Favorite Light Novel - Kenkyo, Kenjitsu o Motto ni Ikite Orimasu",
+        "content": "My favorite light novel is 'Kenkyo, Kenjitsu o Motto ni Ikite Orimasu' or 'I Will Live with Humility and Dependability as My Motto.' I've been hooked on random web novels for years, but this one has stuck with me. Even though the author disappeared and it was discontinued with no proper ending, I still can't get over it.",
+        "metadata": {
+            "tags": ["light novel", "favorite", "kenkyo kenjitsu", "web novel"],
+            "type": "personal_trait",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "24",
+        "title": "Work-Life Philosophy",
+        "content": "I believe work is a part of life, and work-life balance is about having fun with your work. I try to live my life to the fullest by enjoying what I do every day.",
+        "metadata": {
+            "tags": ["philosophy", "work-life balance", "personal belief"],
+            "type": "personal_trait",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "25",
+        "title": "Homelab Dream Bigger Than a Supercar",
+        "content": "I have a long-term plan to build a homelab that would cost more than a supercar. It might sound crazy to some, but for me, it's a dream that combines my passion for tech, learning, and self-hosting.",
+        "metadata": {
+            "tags": ["homelab", "dream", "tech enthusiast"],
+            "type": "personal_trait",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "26",
+        "title": "Lofi Enjoyer",
+        "content": "I am a lofi enjoyer. I often listen to lofi beats while working or relaxing. It helps me focus and creates a calming atmosphere.",
+        "metadata": {
+            "tags": ["music", "lofi", "relaxation"],
+            "type": "personal_trait",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "27",
+        "title": "Mysterious Music Taste",
+        "content": "I can't tell anyone my favorite genre of music because I don't really have one. I just listen to random music from SoundCloud that no one knows the name of. How would I even explain that to someone?",
+        "metadata": {
+            "tags": ["music", "personal trait", "quirk"],
+            "type": "personal_trait",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "28",
+        "title": "Contact Information",
+        "content": "You can reach out to me via email at hrnph@protonmail.com for anything—whether it's a fun project or work-related inquiries.",
+        "metadata": {
+            "tags": ["contact", "email", "networking"],
+            "type": "contact_info",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    },
+    {
+        "id": "29",
+        "title": "DevCommu - Programming Bootcamp Organizer for Highschool",
+        "content": "In 2022, I founded an organization during my school years with my trusted friends. Our mission was twofold: to seek talent and spread tech knowledge. Through collaboration with various schools, we successfully organized programming and tech bootcamps, benefiting over a hundred high schoolers, all free of charge. In that process, I encountered many talented juniors.",
+        "metadata": {
+            "tags": ["community", "bootcamp", "education", "leadership"],
+            "type": "community_initiative",
+            "date": "2025-01-10",
+            "source": "personal_input"
+        }
+    }    
+]

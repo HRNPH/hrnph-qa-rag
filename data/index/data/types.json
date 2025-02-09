@@ -1,0 +1,15 @@
+{
+    "type": [
+        "community_initiative",
+        "contact_info",
+        "education",
+        "experience",
+        "fun_fact",
+        "interests",
+        "languages",
+        "personal_trait",
+        "profile",
+        "skills",
+        "tools"
+    ]
+}

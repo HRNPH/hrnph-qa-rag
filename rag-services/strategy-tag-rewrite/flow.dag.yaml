@@ -1,3 +1,64 @@
-inputs: {}
-outputs: {}
-nodes: []
+inputs:
+  query:
+    type: string
+    default: ""
+    is_chat_input: true
+    is_chat_history: false
+  history:
+    type: list
+    default: []
+    is_chat_history: true
+  tag_limits:
+    type: int
+    default: 5
+outputs:
+  answer:
+    type: string
+    is_chat_output: true
+    reference: ${query_process.output}
+nodes:
+  - name: rewrite_system_prompt
+    type: prompt
+    source:
+      type: code
+      path: ./flows/prompts/rewriter/system_prompt.jinja2
+    inputs: {}
+  - name: rewrite_user_prompt
+    type: prompt
+    source:
+      type: code
+      path: ./flows/prompts/rewriter/user_prompt.jinja2
+    inputs:
+      question: ${inputs.query}
+      limit: ${inputs.tag_limits}
+  - name: tag_rewrite
+    type: python
+    source:
+      type: code
+      path: ./flows/query_rewrite.py
+    inputs:
+      system_prompt: ${rewrite_system_prompt.output}
+      user_prompt: ${rewrite_user_prompt.output}
+  - name: processor_system_prompt
+    type: prompt
+    source:
+      type: code
+      path: ./flows/prompts/processor/system_prompt.jinja2
+    inputs: {}
+  - name: processor_user_prompt
+    type: prompt
+    source:
+      type: code
+      path: ./flows/prompts/processor/user_prompt.jinja2
+    inputs:
+      question: ${inputs.query}
+  - name: query_process
+    type: python
+    source:
+      type: code
+      path: ./flows/query_process.py
+    inputs:
+      system_prompt: ${processor_system_prompt.output}
+      user_prompt: ${processor_user_prompt.output}
+      tags: ${tag_rewrite.output}
+      chat_history: ${inputs.history}

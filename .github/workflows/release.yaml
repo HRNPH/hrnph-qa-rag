@@ -60,4 +60,4 @@ jobs:
       - name: Delete Release
         run: |
           echo "Deleting release ${{ github.ref_name }}"
-          echo "Deleting release ${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          gh release delete ${{ github.ref_name }} --yes || true

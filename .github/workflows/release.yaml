@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "Tag is $GITHUB_REF_NAME"
           # Extract substring after "-strategy-"
-          CONTEXT=./rag-service/strategy/${GITHUB_REF_NAME#*-strategy-}/dist
+          CONTEXT=./rag-services/strategy/${GITHUB_REF_NAME#*-strategy-}/dist
           echo "Extracted context: $CONTEXT"
           echo "context=$CONTEXT" >> $GITHUB_OUTPUT
 

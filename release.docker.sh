@@ -24,6 +24,8 @@ for dir in "$BASE_PATH"/*/; do
     if [[ "$INPUT_PATH" == "$(realpath "$dir")" ]]; then
         print -P "${GREEN}✔ Directory found inside ./rag-services:${RESET} ${CYAN}$INPUT_PATH${RESET}"
         print -P "${BLUE}🚀 Building Docker image...${RESET}"
+
+        rm -rf "$OUTPUT_PATH"
         pf flow build --source "$INPUT_PATH" --output "$OUTPUT_PATH" --format docker
 
         if [[ $? -eq 0 ]]; then

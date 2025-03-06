@@ -23,9 +23,9 @@ jobs:
         run: |
           echo "Tag is $GITHUB_REF_NAME"
           # Extract substring after "-strategy-"
-          CONTEXT=${GITHUB_REF_NAME#*-strategy-}
+          CONTEXT=./rag-service/strategy/${GITHUB_REF_NAME#*-strategy-}/dist
           echo "Extracted context: $CONTEXT"
-          echo "::set-output name=context::./rag-service/strategy/$CONTEXT/dist"
+          echo "context=$CONTEXT" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2

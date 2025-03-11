@@ -28,5 +28,15 @@ class Settings(BaseSettings):
     # Promptflow Settings
     pf_disable_tracing: bool = Field(..., env="PF_DISABLE_TRACING")
 
+    @validator("pf_disable_tracing", pre=True)
+    def parse_bool(cls, v):
+        if isinstance(v, str):
+            if v.lower() in ("true", "1", "yes"):
+                return True
+            elif v.lower() in ("false", "0", "no"):
+                return False
+            raise ValueError("Invalid boolean value")
+        return v
+
 
 SETTING = Settings()

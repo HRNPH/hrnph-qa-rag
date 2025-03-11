@@ -12,7 +12,9 @@ docker run -p 8080:8080 --env-file ./.env hrnph/qa-rag:latest
 
 ```bash
 cd terraform
-terraform state rm proxmox_lxc.lxc_docker
+terraform plan -var-file="local.tfvars" -destroy -out ./destroy.tfplan -parallelism=1
+terraform apply --parallelism=1 -destroy ./destroy.tfplan
+
 terraform refresh -var-file="local.tfvars"
 terraform plan -var-file="local.tfvars" -out ./init.tfplan -parallelism=1
 terraform apply --parallelism=1 ./init.tfplan

@@ -155,7 +155,7 @@ resource "proxmox_lxc" "lxc_docker" {
   # Inject Secret From Secret Manager & run the container
   provisioner "remote-exec" {
     inline = [
-      "docker run -d -p 80:80 --env-file <(infisical export --format=dotenv --token=\"${var.infisical_token}\") ghcr.io/${var.github_username}/${var.github_repo}:latest"
+      "docker run -d -p 80:80 --env-file <(infisical export --format=dotenv --token='${var.infisical_token}') ghcr.io/${var.github_username}/${var.github_repo}:latest"
     ]
 
     connection {
@@ -170,7 +170,8 @@ resource "proxmox_lxc" "lxc_docker" {
 
 # Workaround to get the tunnel token Ref: https://github.com/cloudflare/terraform-provider-cloudflare/issues/5149
 data "http" "tunnel_token" {
-  url = "https://api.cloudflare.com/client/v4/accounts/${var.cloudflare_account_id}/cfd_tunnel/${cloudflare_zero_trust_tunnel_cloudflared.app_tunnel.id}/token"
+  depends_on = [cloudflare_zero_trust_tunnel_cloudflared.app_tunnel]
+  url        = "https://api.cloudflare.com/client/v4/accounts/${var.cloudflare_account_id}/cfd_tunnel/${cloudflare_zero_trust_tunnel_cloudflared.app_tunnel.id}/token"
 
   request_headers = {
     "Authorization" = "Bearer ${var.cloudflare_api_token}"

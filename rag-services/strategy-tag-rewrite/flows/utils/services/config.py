@@ -1,6 +1,6 @@
 import os
 from typing import Optional
-from pydantic import Field, ValidationError
+from pydantic import Field, ValidationError, validator
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
@@ -28,6 +28,15 @@ class Settings(BaseSettings):
     # Promptflow Settings
     pf_disable_tracing: bool = Field(..., env="PF_DISABLE_TRACING")
     promptflow_worker_num: int = Field(..., env="PROMPTFLOW_WORKER_NUM")
+
+    @validator("promptflow_worker_num", pre=True)
+    def parse_worker_num(cls, value):
+        # If the value is a string that represents a digit, convert it to int.
+        if isinstance(value, str) and value.isdigit():
+            return int(value)
+
+        # Otherwise, raise a validation error.
+        return value
 
 
 SETTING = Settings()

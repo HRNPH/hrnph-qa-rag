@@ -139,5 +139,5 @@ variable "domain" {
 variable "infisical_token" {
   description = "Infisical Token"
   type        = string
-  # sensitive   = true
+  sensitive   = true
 }

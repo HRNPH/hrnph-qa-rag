@@ -73,7 +73,7 @@ resource "cloudflare_dns_record" "app_tunnel_cname" {
   content = "${cloudflare_zero_trust_tunnel_cloudflared.app_tunnel.id}.cfargotunnel.com"
 }
 
-resource "proxmox_vm_qemu" "lxc_docker" {
+resource "proxmox_lxc" "lxc_docker" {
   vmid         = var.lxc_vm_id
   depends_on   = [cloudflare_dns_record.app_tunnel_cname]
   start        = true # Start the container after creation

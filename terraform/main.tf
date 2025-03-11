@@ -53,7 +53,7 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "app_tunnel_config" {
   config = {
     ingress = [
       {
-        hostname = var.domain
+        hostname = "${var.subdomain}.${var.domain}"
         service  = "http://localhost:80"
         path     = "/"
       },

@@ -156,7 +156,9 @@ resource "proxmox_lxc" "lxc_docker" {
   provisioner "remote-exec" {
     inline = [
       "#!/bin/bash", # Use a bash script to run the command, since <() is a bash feature
-      "docker run -d -p 80:8080 --env-file <(infisical export --format=dotenv --token='${var.infisical_token}') ghcr.io/${var.github_username}/${var.github_repo}:latest"
+      "echo '{{$secrets := secret \"<infisical-project-id>\" \"<environment-slug>\" \"<folder-path>\"}}\n{{- range $secret := $secrets }}\n{{$secret.Key}}={{$secret.Value}}\n{{- end}}' > /tmp/gotemplate",
+      "docker run -d -p 80:8080 --env-file <(infisical export --format=dotenv --token='${var.infisical_token}' --template /tmp/gotemplate) ghcr.io/${var.github_username}/${var.github_repo}:latest",
+      "rm /tmp/gotemplate"
     ]
 
     connection {

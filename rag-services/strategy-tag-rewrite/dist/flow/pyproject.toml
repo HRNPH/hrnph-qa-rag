@@ -11,4 +11,5 @@ dependencies = [
     "promptflow==1.17.2",
     "pydantic>=2.10.5",
     "python-dotenv>=1.0.1",
+    "pydantic-settings>=2.8.1",
 ]

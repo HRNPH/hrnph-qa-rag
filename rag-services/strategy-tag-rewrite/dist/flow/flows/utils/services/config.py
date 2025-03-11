@@ -1,5 +1,7 @@
 import os
-from pydantic import BaseSettings, Field, ValidationError
+from typing import Optional
+from pydantic import Field, ValidationError
+from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -18,6 +20,10 @@ class Settings(BaseSettings):
     # AI Services Settings
     openai_model: str = Field(..., env="OPENAI_MODEL")
     openai_api_key: str = Field(..., env="OPENAI_API_KEY")
+    openai_base_url: Optional[str] = Field(None, env="OPENAI_BASE_URL")
+    openai_websocket_base_url: Optional[str] = Field(
+        None, env="OPENAI_WEBSOCKET_BASE_URL"
+    )
 
     # Promptflow Settings
     pf_disable_tracing: bool = Field(..., env="PF_DISABLE_TRACING")

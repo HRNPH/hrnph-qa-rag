@@ -1,6 +1,8 @@
 import os
 from typing import Any, List
 from promptflow.core import tool
+import openai
+from dotenv import load_dotenv
 
 from flows.utils.ai_services import AIServices
 from promptflow.tracing import trace, start_trace
@@ -11,6 +13,7 @@ from flows.utils.services.config import SETTING
 
 logger = logging.getLogger()
 start_trace(collection="hrnph-rag-tag-rw")
+load_dotenv()
 
 
 @trace

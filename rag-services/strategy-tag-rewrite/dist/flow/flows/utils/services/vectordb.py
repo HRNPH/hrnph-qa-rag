@@ -2,9 +2,7 @@ import os
 from typing import Dict, List, Optional
 import chromadb
 from chromadb import Settings
-from dotenv import load_dotenv
 from pydantic import BaseModel, Field
-
 from flows.utils.services.config import SETTING
 
 

@@ -31,5 +31,5 @@ class AIServices:
 
 
 if __name__ == "__main__":
-    collection_name = SETTING.target_collection_name]
+    collection_name = SETTING.target_collection_name
     print(AIServices.search_by_tag(collection_name, ["technologies"]))

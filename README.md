@@ -11,6 +11,7 @@ docker run -p 8080:8080 --env-file ./.env hrnph/qa-rag:latest
 ### Terraform
 
 ```bash
+cd terraform
 terraform plan -var-file="local.tfvars" -out ./init.tfplan -parallelism=1
 terraform apply --parallelism=1 ./init.tfplan
 ```

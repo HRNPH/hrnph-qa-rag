@@ -11,6 +11,10 @@ terraform {
     random = {
 
     }
+    http = {
+      source  = "hashicorp/http"
+      version = "3.4.5"
+    }
   }
 }
 
@@ -83,7 +87,7 @@ resource "proxmox_lxc" "lxc_docker" {
   cores        = var.lxc_cores
   memory       = var.lxc_memory
   swap         = var.lxc_swap
-  unprivileged = false
+  unprivileged = true
 
   features {
     nesting = true
@@ -111,7 +115,7 @@ resource "proxmox_lxc" "lxc_docker" {
   # Install required packages and set up the container
   provisioner "remote-exec" {
     inline = [
-      # Update and install required packages
+      # Update and install required packages (Docker)
       "sudo apt-get update -y",
       "sudo apt-get install ca-certificates curl -y",
       "sudo install -m 0755 -d /etc/apt/keyrings",
@@ -119,7 +123,10 @@ resource "proxmox_lxc" "lxc_docker" {
       "sudo chmod a+r /etc/apt/keyrings/docker.asc",
       "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu jammy stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null;",
       "sudo apt-get update -y",
-      "sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y"
+      "sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y",
+      # Install Infisical CLI (Secret Manager)
+      "curl -1sLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.deb.sh' | sudo -E bash",
+      "sudo apt-get update && sudo apt-get install -y infisical"
     ]
 
     connection {
@@ -145,10 +152,10 @@ resource "proxmox_lxc" "lxc_docker" {
     }
   }
 
-  # Build and run the Docker container
+  # Inject Secret From Secret Manager & run the container
   provisioner "remote-exec" {
     inline = [
-      "sudo docker run -d -p 80:80 ghcr.io/${var.github_username}/${var.github_repo}:latest",
+      "docker run -d -p 80:80 --env-file <(infisical export --format=dotenv --token=\"${var.infisical_token}\") ghcr.io/${var.github_username}/${var.github_repo}:latest"
     ]
 
     connection {
@@ -160,9 +167,24 @@ resource "proxmox_lxc" "lxc_docker" {
   }
 }
 
+
+# Workaround to get the tunnel token Ref: https://github.com/cloudflare/terraform-provider-cloudflare/issues/5149
+data "http" "tunnel_token" {
+  url = "https://api.cloudflare.com/client/v4/accounts/${var.cloudflare_account_id}/cfd_tunnel/${cloudflare_zero_trust_tunnel_cloudflared.app_tunnel.id}/token"
+
+  request_headers = {
+    "Authorization" = "Bearer ${var.cloudflare_api_token}"
+    "Content-Type"  = "application/json"
+  }
+}
+
 # Upload and configure cloudflared as a systemd service
 resource "null_resource" "cloudflared_setup" {
   depends_on = [proxmox_lxc.lxc_docker, cloudflare_zero_trust_tunnel_cloudflared.app_tunnel]
+  # Only if the tunnel token is available
+  triggers = {
+    tunnel_token = data.http.tunnel_token.response_body
+  }
 
   # Install cloudflared and set up as a service
   provisioner "remote-exec" {
@@ -170,7 +192,9 @@ resource "null_resource" "cloudflared_setup" {
       # Download and install cloudflared
       "curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb",
       # Install by Token
-      "sudo dpkg -i cloudflared.deb && sudo cloudflared service install ${cloudflare_zero_trust_tunnel_cloudflared.app_tunnel.tunnel_secret}"
+      "sudo dpkg -i cloudflared.deb",
+      "rm cloudflared.deb",
+      "sudo cloudflared service install ${jsondecode(data.http.tunnel_token.response_body)["result"]}",
     ]
 
     connection {

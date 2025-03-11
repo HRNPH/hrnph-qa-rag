@@ -134,3 +134,10 @@ variable "domain" {
   description = "Full domain to route via Cloudflare tunnel (e.g., app.example.com)"
   type        = string
 }
+
+# Secret Managets
+variable "infisical_token" {
+  description = "Infisical Token"
+  type        = string
+  sensitive   = true
+}

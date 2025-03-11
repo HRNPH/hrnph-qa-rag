@@ -69,12 +69,5 @@ jobs:
     if: success()
 
     steps:
-      - name: Install SSH key
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to VPS
-        run: |
-          echo "Deploying to VPS"
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash -s' < deploy.sh
+      - name: Do Nothing
+        run: echo "Do nothing"

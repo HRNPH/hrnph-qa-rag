@@ -20,10 +20,12 @@ resource "random_password" "tunnel_secret" {
 }
 
 provider "proxmox" {
-  pm_api_url          = var.proxmox_api_url
-  pm_api_token_id     = var.proxmox_api_token_id
-  pm_api_token_secret = var.proxmox_api_token_secret
-  pm_parallel         = 1 # https://github.com/Telmate/terraform-provider-proxmox/issues/173 (Lockfile Issue)
+  pm_api_url = var.proxmox_api_url
+  # pm_api_token_id     = var.proxmox_api_token_id
+  # pm_api_token_secret = var.proxmox_api_token_secret
+  pm_user     = var.proxmox_api_token_id
+  pm_password = var.proxmox_api_token_secret
+  pm_parallel = 1 # https://github.com/Telmate/terraform-provider-proxmox/issues/173 (Lockfile Issue)
 }
 
 provider "cloudflare" {
@@ -71,16 +73,21 @@ resource "cloudflare_dns_record" "app_tunnel_cname" {
   content = "${cloudflare_zero_trust_tunnel_cloudflared.app_tunnel.id}.cfargotunnel.com"
 }
 
-resource "proxmox_lxc" "lxc_docker" {
-  vmid        = var.lxc_vm_id
-  depends_on  = [cloudflare_dns_record.app_tunnel_cname]
-  start       = true # Start the container after creation
-  target_node = var.lxc_target_node
-  hostname    = var.lxc_hostname
-  ostemplate  = var.lxc_template
-  cores       = var.lxc_cores
-  memory      = var.lxc_memory
-  swap        = var.lxc_swap
+resource "proxmox_vm_qemu" "lxc_docker" {
+  vmid         = var.lxc_vm_id
+  depends_on   = [cloudflare_dns_record.app_tunnel_cname]
+  start        = true # Start the container after creation
+  target_node  = var.lxc_target_node
+  hostname     = var.lxc_hostname
+  ostemplate   = var.lxc_template
+  cores        = var.lxc_cores
+  memory       = var.lxc_memory
+  swap         = var.lxc_swap
+  unprivileged = false
+
+  features {
+    nesting = true
+  }
 
   # Set the root password for the container
   rootfs {
@@ -105,8 +112,14 @@ resource "proxmox_lxc" "lxc_docker" {
   provisioner "remote-exec" {
     inline = [
       # Update and install required packages
-      "apt-get update",
-      "apt-get install -y git docker.io",
+      "sudo apt-get update -y",
+      "sudo apt-get install ca-certificates curl -y",
+      "sudo install -m 0755 -d /etc/apt/keyrings",
+      "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc",
+      "sudo chmod a+r /etc/apt/keyrings/docker.asc",
+      "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu jammy stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null;",
+      "sudo apt-get update -y",
+      "sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y"
     ]
 
     connection {
@@ -135,7 +148,7 @@ resource "proxmox_lxc" "lxc_docker" {
   # Build and run the Docker container
   provisioner "remote-exec" {
     inline = [
-      "sudo docker run --security-opt apparmor=unconfined -d -p 80:80 ghcr.io/${var.github_username}/${var.github_repo}:latest",
+      "sudo docker run -d -p 80:80 ghcr.io/${var.github_username}/${var.github_repo}:latest",
     ]
 
     connection {
@@ -155,7 +168,7 @@ resource "null_resource" "cloudflared_setup" {
   provisioner "remote-exec" {
     inline = [
       # Download and install cloudflared
-      "curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && ",
+      "curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb",
       # Install by Token
       "sudo dpkg -i cloudflared.deb && sudo cloudflared service install ${cloudflare_zero_trust_tunnel_cloudflared.app_tunnel.tunnel_secret}"
     ]

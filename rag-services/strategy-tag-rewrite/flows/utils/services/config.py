@@ -27,7 +27,6 @@ class Settings(BaseSettings):
 
     # Promptflow Settings
     pf_disable_tracing: bool = Field(..., env="PF_DISABLE_TRACING")
-    promptflow_worker_num: int = Field(..., env="PROMPTFLOW_WORKER_NUM")
 
     @validator("promptflow_worker_num", pre=True)
     def parse_worker_num(cls, value):

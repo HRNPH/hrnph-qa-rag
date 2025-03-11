@@ -7,7 +7,7 @@ import requests
 load_dotenv()
 
 CHROMA_CLIENT = chromadb.HttpClient(
-    host=os.environ["CHROMADB_HOST"],
+    host=SETTING,
     ssl=True,
     port=443,
     headers={

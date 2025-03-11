@@ -5,20 +5,21 @@ from chromadb import Settings
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
-load_dotenv()
+from flows.utils.services.config import SETTING
+
 
 CHROMA_CLIENT = chromadb.HttpClient(
-    host=os.environ["CHROMADB_HOST"],
+    host=SETTING.chromadb_host,
     ssl=True,
     port=443,
     headers={
         "Accept-Language": "en",
-        "CF-Access-Client-Id": os.environ["CHROMADB_CF_ACCESS_CLIENT_ID"],
-        "CF-Access-Client-Secret": os.environ["CHROMADB_CF_ACCESS_CLIENT_SECRET"],
+        "CF-Access-Client-Id": SETTING.chromadb_cf_access_client_id,
+        "CF-Access-Client-Secret": SETTING.chromadb_cf_access_client_secret,
     },
     settings=Settings(
         chroma_client_auth_provider="chromadb.auth.token_authn.TokenAuthClientProvider",
-        chroma_client_auth_credentials=os.environ["CHROMADB_AUTH_TOKEN"],
+        chroma_client_auth_credentials=SETTING.chromadb_auth_token,
     ),
 )
 
@@ -111,7 +112,7 @@ class VectorDb:
 
 
 if __name__ == "__main__":
-    TARGET_COLLECTION_NAME = os.environ["TARGET_COLLECTION_NAME"]
+    TARGET_COLLECTION_NAME = SETTING.target_collection_name
     print(
         VectorDb.search_by_type(
             TARGET_COLLECTION_NAME, ["personal_trait", "ai"], top_k=1000

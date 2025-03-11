@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 from flows.utils.ai_services import AIServices
 from promptflow.tracing import trace, start_trace
 
+from flows.utils.services.config import SETTING
+
 start_trace(collection="hrnph-rag-tag-rw")
 load_dotenv()
 
@@ -30,7 +32,7 @@ class PostProcess:
 @trace
 @tool
 def tag_rewrite(
-    system_prompt: str, user_prompt: str, model: str = os.environ["OPENAI_MODEL"]
+    system_prompt: str, user_prompt: str, model: str = SETTING.openai_model
 ):
     for i in range(3):
         result = (

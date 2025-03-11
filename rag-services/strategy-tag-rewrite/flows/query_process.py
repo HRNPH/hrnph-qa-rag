@@ -9,6 +9,7 @@ from promptflow.tracing import trace, start_trace
 import logging
 
 from flows.utils.handle_history import HistoryHandler
+from flows.utils.services.config import SETTING
 
 logger = logging.getLogger()
 start_trace(collection="hrnph-rag-tag-rw")
@@ -17,7 +18,7 @@ load_dotenv()
 
 @trace
 def reference_searching(
-    tags: List[str], collection_name: str = os.environ["TARGET_COLLECTION_NAME"]
+    tags: List[str], collection_name: str = SETTING.target_collection_name
 ):
     results = AIServices.search_by_tags(collection_name=collection_name, tags=tags)
     # Create Reference String
@@ -49,7 +50,7 @@ def query_process(
     user_prompt: str,
     chat_history: List[Any],
     tags: List[str] = ["technologies"],
-    model: str = os.environ["OPENAI_MODEL"],
+    model: str = SETTING.openai_model,
 ):
     user_prompt = (
         add_ipad_information(user_prompt=user_prompt, tags=tags)

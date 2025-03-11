@@ -28,14 +28,5 @@ class Settings(BaseSettings):
     # Promptflow Settings
     pf_disable_tracing: bool = Field(..., env="PF_DISABLE_TRACING")
 
-    @validator("promptflow_worker_num", pre=True)
-    def parse_worker_num(cls, value):
-        # If the value is a string that represents a digit, convert it to int.
-        if isinstance(value, str) and value.isdigit():
-            return int(value)
-
-        # Otherwise, raise a validation error.
-        return value
-
 
 SETTING = Settings()
